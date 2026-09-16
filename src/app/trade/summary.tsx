@@ -2,7 +2,7 @@
 // FILE: src/app/trade/summary.tsx
 // DESCRIPTION: Trade Summary / Review Screen with native slide-down close.
 // ============================================================================
-
+import { usePortfolio } from "../../context/PortfolioContext";
 import React, { useState, useEffect, useRef } from "react";
 import {
   View,
@@ -84,6 +84,7 @@ const ASSET_PRICES: Record<
 export default function TradeSummaryScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { addTrade } = usePortfolio();
   const {
     action = "buy",
     ticker = "TSLAx",
@@ -170,6 +171,19 @@ export default function TradeSummaryScreen() {
   // ==========================================================================
   const handleConfirmTrade = () => {
     setIsSubmitting(true);
+
+    // 1. Record the purchase into your live portfolio state
+    addTrade({
+      ticker: cleanTicker,
+      name: assetInfo.name,
+      amountUsd: parseFloat(formattedUsd),
+      tokenAmount: parseFloat(tokenAmount),
+      price: parseFloat(executionPrice),
+      action: isBuy ? "buy" : "sell",
+      logo: assetInfo.logo,
+    });
+
+    // 2. Direct to the completed screen
     setTimeout(() => {
       setIsSubmitting(false);
       router.push({
@@ -179,6 +193,7 @@ export default function TradeSummaryScreen() {
           ticker: cleanTicker,
           amount: formattedUsd,
           tokenAmount,
+          price: executionPrice,
         },
       });
     }, 800);

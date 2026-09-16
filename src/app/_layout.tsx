@@ -5,10 +5,11 @@
 
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { PortfolioProvider } from "../context/PortfolioContext";
 
 export default function RootLayout() {
   return (
-    <>
+    <PortfolioProvider>
       <StatusBar style="dark" />
 
       <Stack
@@ -19,41 +20,34 @@ export default function RootLayout() {
         }}
       >
         {/* 1. Main Screens */}
-        <Stack.Screen name="index" />
-        <Stack.Screen name="explore" />
-        <Stack.Screen name="portfolio" />
+        <Stack.Screen name="index" options={{ animation: "none" }} />
+        <Stack.Screen name="explore" options={{ animation: "none" }} />
+        <Stack.Screen name="portfolio" options={{ animation: "none" }} />
 
         {/* 2. Stock Detail View */}
         <Stack.Screen
           name="stock/[id]"
-          options={{
-            animation: "slide_from_right",
-          }}
+          options={{ animation: "slide_from_right" }}
         />
 
         {/* 3. Trading Flow */}
         <Stack.Screen
           name="trade/index"
-          options={{
-            presentation: "modal", // Native iOS rubber-band spring sheet
-            animation: "slide_from_bottom",
-          }}
+          options={{ animation: "slide_from_bottom" }}
         />
         <Stack.Screen
           name="trade/summary"
-          options={{
-            animation: "slide_from_bottom", // Opens as a bottom-to-top drawer
-          }}
+          options={{ animation: "slide_from_bottom" }}
         />
         <Stack.Screen
           name="trade/completed"
           options={{
             presentation: "fullScreenModal",
-            animation: "fade_from_bottom",
+            animation: "fade",
             gestureEnabled: false,
           }}
         />
       </Stack>
-    </>
+    </PortfolioProvider>
   );
 }
