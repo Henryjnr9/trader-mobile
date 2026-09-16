@@ -42,8 +42,7 @@ export default function RootLayout() {
         <Stack.Screen
           name="trade/summary"
           options={{
-            presentation: "card",
-            animation: "slide_from_right",
+            animation: "slide_from_bottom", // Opens as a bottom-to-top drawer
           }}
         />
         <Stack.Screen

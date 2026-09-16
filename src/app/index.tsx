@@ -469,7 +469,7 @@ export default function HomeScreen() {
                     style={styles.stockItemRow}
                     activeOpacity={0.7}
                     onPress={() =>
-                      router.push({
+                      router.replace({
                         pathname: "/stock/[id]",
                         params: { id: item.ticker },
                       })
@@ -550,7 +550,7 @@ export default function HomeScreen() {
                     style={styles.stockCard}
                     activeOpacity={0.8}
                     onPress={() =>
-                      router.push({
+                      router.replace({
                         pathname: "/stock/[id]",
                         params: { id: item.ticker },
                       })
@@ -882,7 +882,7 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: "#000000",
+    backgroundColor: "#",
     justifyContent: "center",
     alignItems: "center",
     marginRight: 14,

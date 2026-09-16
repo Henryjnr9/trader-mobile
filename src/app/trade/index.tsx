@@ -289,7 +289,17 @@ export default function TradeIndexScreen() {
           <TouchableOpacity
             style={styles.closeIconContainer}
             activeOpacity={0.7}
-            onPress={() => router.back()}
+            onPress={() => {
+              // Explicitly closes the trade modal and returns to the asset's info screen
+              if (router.canGoBack()) {
+                router.back();
+              } else {
+                router.replace({
+                  pathname: "/stock/[id]",
+                  params: { id: cleanTicker },
+                });
+              }
+            }}
           >
             <Text style={styles.closeIconText}>✕</Text>
           </TouchableOpacity>
@@ -457,7 +467,7 @@ export default function TradeIndexScreen() {
           activeOpacity={hasAmount ? 0.8 : 1}
           disabled={!hasAmount}
           onPress={() => {
-            router.push({
+            router.replace({
               pathname: "/trade/summary",
               params: {
                 action,

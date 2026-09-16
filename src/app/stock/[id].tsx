@@ -963,7 +963,13 @@ export default function StockDetailScreen() {
             <TouchableOpacity
               style={styles.sec1_backBtn}
               activeOpacity={0.7}
-              onPress={() => router.back()}
+              onPress={() => {
+                if (router.canGoBack()) {
+                  router.back();
+                } else {
+                  router.replace("/");
+                }
+              }}
             >
               <Text style={styles.sec1_backIconText}>‹</Text>
             </TouchableOpacity>
@@ -1562,7 +1568,7 @@ export default function StockDetailScreen() {
           style={styles.sec7_sellBtn}
           activeOpacity={0.8}
           onPress={() =>
-            router.push(`/trade?action=sell&ticker=${asset.ticker}` as any)
+            router.replace(`/trade?action=sell&ticker=${asset.ticker}` as any)
           }
         >
           <Text style={styles.sec7_sellBtnText}>Sell</Text>

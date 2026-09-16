@@ -55,7 +55,7 @@ export function BottomNav() {
             key={tab.key}
             style={styles.tabItem}
             activeOpacity={0.7}
-            onPress={() => router.push(tab.route as any)}
+            onPress={() => router.replace(tab.route as any)}
           >
             {/* Universal Icon Component */}
             <Icon name={tab.iconName} size={24} color={color} />
